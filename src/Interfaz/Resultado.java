@@ -15,6 +15,7 @@ public class Resultado extends JDialog {
     public Vector<String> nomColumnas;
     public Vector<Vector> datosColumnnas;
     public Resultado(ArrayList<FilaResultado> listaResultado) {
+        datosColumnnas.removeAllElements();
         for(FilaResultado fr : listaResultado){
             Vector fila = new Vector();
             fila.add(fr.getNombre());
@@ -56,7 +57,6 @@ public class Resultado extends JDialog {
         // add your code here if necessary
         dispose();
     }
-
 
     private void createUIComponents() {
         nomColumnas = new Vector<String>();

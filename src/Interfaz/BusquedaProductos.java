@@ -1,9 +1,6 @@
 package Interfaz;
 
-import Logica.Busqueda;
-import Logica.FilaResultado;
-import Logica.Fnac;
-import Logica.Tienda;
+import Logica.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,11 +23,9 @@ public class BusquedaProductos {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (fnacCheckBox.isSelected()) {
                     Resultado dialog = new Resultado(getCafeterasDeTiendasSeleccionadas());
                     dialog.pack();
                     dialog.setVisible(true);
-                }
             }
         });
     }
@@ -61,7 +56,7 @@ public class BusquedaProductos {
         Vector v = new Vector();
         v.add("Articulos");
         //Cafeteras automaticas, expreso manuales expreso automaticas
-        v.add(new JCheckBox("Cafeteras expreso y automaticas", false));
+        v.add(new JCheckBox("Cafeteras expreso", false));
         //Cafeteras monodosis/ en capsula
         v.add(new JCheckBox("Cafeteras monodosis/capsula", false));
         //Cafeteras de goteo
@@ -79,14 +74,16 @@ public class BusquedaProductos {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
         ArrayList<String> marcaItems = marcaComboBox.getCheckedItems();
         ArrayList<String> articuloItems = articuloComboBox.getCheckedItems();
-        if(articuloItems.contains("Cafeteras expreso y automaticas")){
+        if(articuloItems.contains("Cafeteras de goteo")){
+            System.out.println("fddfsdsfsdfdsf");
+            res.addAll(t.getCafeterasGoteo(marcaItems));
+        }
+        if(articuloItems.contains("Cafeteras expreso")){
             res.addAll(t.getCafeterasAutomaticas(marcaItems));
         }
         if(articuloItems.contains("Cafeteras monodosis/capsula")){
+            System.out.println("fddfsdsfsdfdsf");
             res.addAll(t.getCafeterasMonodosis(marcaItems));
-        }
-        if(articuloItems.contains("Cafeteras de goteo")){
-            res.addAll(t.getCafeterasGoteo(marcaItems));
         }
         return res;
     }
@@ -95,6 +92,12 @@ public class BusquedaProductos {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
         if(fnacCheckBox.isSelected()){
             res.addAll(getCafeterasDeTienda(new Fnac()));
+        }
+        if(amazonCheckBox.isSelected()){
+            res.addAll(getCafeterasDeTienda(new Amazon()));
+        }
+        if(elCorteInglesCheckBox.isSelected()){
+            res.addAll(getCafeterasDeTienda(new CorteIngles()));
         }
         return res;
     }

@@ -1,17 +1,8 @@
 package Logica;
 
 import Interfaz.BusquedaProductos;
-import com.google.common.base.Predicate;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Busqueda {
     public static void main(String[] args) {

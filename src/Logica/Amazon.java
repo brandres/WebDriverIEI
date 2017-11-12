@@ -16,8 +16,6 @@ public class Amazon extends Tienda {
     public ArrayList<FilaResultado> getCafetera(String url, ArrayList<String> options) {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
         driver.get(url);
-        System.out.println(url);
-        System.out.println(options.size());
         if (options.size() != 0) {
             for (String o : options) {
                 driver.navigate().refresh();
@@ -25,7 +23,7 @@ public class Amazon extends Tienda {
                 tryClick(By.className("s-ref-overlap-up"));
             }
         } else {
-            res.addAll(getArticulosDePaginas(5));
+            res.addAll(getArticulosDePaginas(2));
         }
         driver.navigate().refresh();
         return res;
@@ -39,7 +37,7 @@ public class Amazon extends Tienda {
             options = "DeLonghi";
         }
         tryClick(By.partialLinkText(options));
-        return getArticulosDePaginas(5);
+        return getArticulosDePaginas(2);
     }
 
     @Override
@@ -71,7 +69,6 @@ public class Amazon extends Tienda {
             while (!listo) {
                 try {
                     String nombre = elemento.findElement(By.className("a-size-base")).getText();
-                    System.out.println(nombre);
                     String precio = elemento.findElement(By.className("a-price-whole")).getText() +
                             "," + elemento.findElement(By.className("a-price-fraction")).getText() + " €";
                     resultados.add(new FilaResultado(nombre, precio, "Amazon"));

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 
 public abstract class Tienda {
-    public static final String EXE_PATH = "lib\\chromedriver_win32\\chromedriver.exe";
+    public static final String EXE_PATH = "lib/chromedriver_win32/chromedriver.exe";
     public WebDriverWait wait;
     public WebDriver driver;
     public Tienda(){
@@ -55,7 +55,6 @@ public abstract class Tienda {
             try {
                 WebElement element = driver.findElement(by);
                 element.getText();
-                System.out.println(element.getText());
                 listo = true;
             } catch (NoSuchElementException err){
                 System.out.println(err);

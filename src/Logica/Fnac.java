@@ -34,7 +34,6 @@ public class Fnac extends Tienda {
             e.findElement(By.partialLinkText(options)).click();
         } catch (NoSuchElementException err) {
             System.out.println(err);
-            System.out.println(e.getText());
             return new ArrayList<FilaResultado>();
         }
         tryClick(By.className("Item-onPage"));

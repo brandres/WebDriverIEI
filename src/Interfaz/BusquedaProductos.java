@@ -31,7 +31,6 @@ public class BusquedaProductos {
     }
 
     public void run() {
-
         JFrame jFrame = new JFrame("Busqueda de productos");
         jFrame.setContentPane(this.panelPrincipal);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,16 +74,15 @@ public class BusquedaProductos {
         ArrayList<String> marcaItems = marcaComboBox.getCheckedItems();
         ArrayList<String> articuloItems = articuloComboBox.getCheckedItems();
         if (articuloItems.contains("Cafeteras de goteo")) {
-            System.out.println("fddfsdsfsdfdsf");
             res.addAll(t.getCafeterasGoteo(marcaItems));
         }
         if (articuloItems.contains("Cafeteras expreso")) {
             res.addAll(t.getCafeterasAutomaticas(marcaItems));
         }
         if (articuloItems.contains("Cafeteras monodosis/capsula")) {
-            System.out.println("fddfsdsfsdfdsf");
             res.addAll(t.getCafeterasMonodosis(marcaItems));
         }
+        t.driver.quit();
         return res;
     }
 

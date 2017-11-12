@@ -75,7 +75,7 @@ public class MediaMarkt extends Tienda {
         List<WebElement> elementList = null;
         while (!estaListo) {
             try {
-                elementList = driver.findElement(By.id("categoryContainerProducts")).findElements(By.tagName("li"));
+                elementList = driver.findElement(By.id("categoryContainerProducts")).findElements(By.id("categoryProductContainer"));
                 estaListo = true;
             } catch (StaleElementReferenceException err) {
                 System.out.println(err);
@@ -85,8 +85,10 @@ public class MediaMarkt extends Tienda {
             estaListo= false;
             while (!estaListo) {
                 try {
-                    String nombre = e.findElement(By.className("productName")).getText();
+                    System.out.println(e.getText());
+                    String nombre = e.findElement(By.className("product1Description")).getText();
                     String precio = e.findElement(By.className("mm-price")).findElements(By.tagName("div")).get(1).getText();
+                    System.out.println(nombre);
                     if(!precio.contains("€")){
                         precio = precio + "€";
                     }

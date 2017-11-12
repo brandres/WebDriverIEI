@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="MakeZip">
+    <output-path>$PROJECT_DIR$/out/artifacts/MakeZip</output-path>
+    <root id="root">
+      <element id="archive" name="Entrega2.zip">
+        <element id="dir-copy" path="$PROJECT_DIR$" />
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -29,7 +29,6 @@ public class JComboCheckBox extends JComboBox
         ArrayList<String> res = new ArrayList<String>();
         for(int i = 1; i<super.getModel().getSize();i++){
             JCheckBox jc = (JCheckBox) super.getModel().getElementAt(i);
-            System.out.println(jc.getText());
             if(jc.isSelected()){
                 res.add(jc.getText());
             }

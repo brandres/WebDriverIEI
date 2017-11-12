@@ -25,7 +25,6 @@ public class Amazon extends Tienda {
                 tryClick(By.className("s-ref-overlap-up"));
             }
         } else {
-            System.out.println("NO DEBERIA HABER ENTRADO AQUII");
             res.addAll(getArticulosDePaginas(5));
         }
         driver.navigate().refresh();
@@ -72,6 +71,7 @@ public class Amazon extends Tienda {
             while (!listo) {
                 try {
                     String nombre = elemento.findElement(By.className("a-size-base")).getText();
+                    System.out.println(nombre);
                     String precio = elemento.findElement(By.className("a-price-whole")).getText() +
                             "," + elemento.findElement(By.className("a-price-fraction")).getText() + " €";
                     resultados.add(new FilaResultado(nombre, precio, "Amazon"));
@@ -98,9 +98,10 @@ public class Amazon extends Tienda {
     //Paginas no deberia ser mayor que 5 pòrque si no amazon bloquea el acceso
     public ArrayList<FilaResultado> getArticulosDePaginas(int paginas) {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
-        for (int i = 0; i < paginas; i++) {
+        for (int i = 1; i < paginas; i++) {
             res.addAll(getListaArticulos());
             tryClick(By.id("pagnNextString"));
+            driver.navigate().refresh();
             try {
                 driver.findElement(By.id("pagnNextLink")).getText();
             } catch (NoSuchElementException err) {

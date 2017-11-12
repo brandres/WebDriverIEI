@@ -15,6 +15,12 @@ public class Resultado extends JDialog {
     public Vector<String> nomColumnas;
     public Vector<Vector> datosColumnnas;
     public Resultado(ArrayList<FilaResultado> listaResultado) {
+        Map<String,FilaResultado> hs = new HashMap<>();
+        for(FilaResultado fru: listaResultado){
+            hs.put(fru.Nombre,fru);
+        }
+        listaResultado.clear();
+        listaResultado.addAll(hs.values());
         for(FilaResultado fr : listaResultado){
             Vector fila = new Vector();
             fila.add(fr.getNombre());

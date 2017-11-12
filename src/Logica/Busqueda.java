@@ -25,7 +25,7 @@ public class Busqueda {
     }
 
 
-    public static void waitBusqueda(long i) {
+    public synchronized static void waitBusqueda(long i) {
         try {
             Thread.sleep(i);
         } catch (InterruptedException e) {

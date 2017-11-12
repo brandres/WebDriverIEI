@@ -23,7 +23,7 @@ public abstract class Tienda {
     public abstract ArrayList<FilaResultado> getCafeterasGoteo(ArrayList<String> options);
     public abstract ArrayList<FilaResultado> getListaArticulos();
 
-    public void tryClick(By by){
+    public synchronized void tryClick(By by){
         boolean listo = false;
         while (!listo) {
             try {
@@ -37,15 +37,14 @@ public abstract class Tienda {
             }
         }
     }
-    public void tryClick(WebElement e){
+    public synchronized void tryClick(WebElement e,By by) throws NoSuchElementException{
         boolean listo = false;
         while (!listo) {
             try {
-                e.click();
-                listo = true;
-            } catch (NoSuchElementException err){
+                e.findElement(by).click();
                 listo = true;
             } catch (WebDriverException err) {
+                System.out.println(err);
                 listo = false;
             }
         }

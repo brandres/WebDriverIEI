@@ -13,21 +13,27 @@ public class CorteIngles extends Tienda {
     public ArrayList<FilaResultado> getCafetera(String url, ArrayList<String> options) {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
         driver.get(url);
-        if(options.size() != 0){
-        for(String o : options){
-           res.addAll(getBusquedaConFiltros(driver.findElement(By.className("dimensions")),o));
-        }}else{
+        if (options.size() != 0) {
+            for (String o : options) {
+                res.addAll(getBusquedaConFiltros(driver.findElement(By.className("dimensions")), o));
+                driver.findElement(By.partialLinkText("Desmarcar todos")).click();
+            }
+        } else {
             res.addAll(getTotalArticulos());
         }
-        return null;
+        return res;
     }
 
     @Override
     public ArrayList<FilaResultado> getBusquedaConFiltros(WebElement e, String options) {
-        if(options.equalsIgnoreCase("Delonghi")){
+        if (options.equalsIgnoreCase("Delonghi")) {
             options = "De'Longhi";
         }
-        tryClick(e.findElement(By.partialLinkText("options")));
+        try {
+            tryClick(e,By.partialLinkText(options));
+        } catch (NoSuchElementException err) {
+            return new ArrayList<FilaResultado>();
+        }
         return getTotalArticulos();
     }
 
@@ -53,22 +59,24 @@ public class CorteIngles extends Tienda {
     public ArrayList<FilaResultado> getListaArticulos() {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
         List<WebElement> elementList = driver.findElement(By.className("product-list")).findElements(By.className("product"));
-        for(WebElement e:elementList){
+        for (WebElement e : elementList) {
             String nombre = e.findElement(By.className("product-name")).getText();
-            String precio = e.findElement(By.className("product-price")).getText();
-            res.add(new FilaResultado(nombre,precio,"El Corte Inglés"));
+            String precio = e.findElement(By.className("current")).getText();
+            res.add(new FilaResultado(nombre, precio, "El Corte Inglés"));
         }
         return res;
     }
-    public ArrayList<FilaResultado> getTotalArticulos(){
+
+    public ArrayList<FilaResultado> getTotalArticulos() {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
-        boolean haySiguiente= true;
-        while(haySiguiente){
-            try{
+        boolean haySiguiente = true;
+        while (haySiguiente) {
+            try {
                 res.addAll(getListaArticulos());
                 driver.findElement(By.partialLinkText("Siguiente")).click();
-            }catch(NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println(e);
+                haySiguiente = false;
             }
         }
         return res;

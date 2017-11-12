@@ -23,9 +23,9 @@ public class BusquedaProductos {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    Resultado dialog = new Resultado(getCafeterasDeTiendasSeleccionadas());
-                    dialog.pack();
-                    dialog.setVisible(true);
+                Resultado dialog = new Resultado(getCafeterasDeTiendasSeleccionadas());
+                dialog.pack();
+                dialog.setVisible(true);
             }
         });
     }
@@ -74,14 +74,14 @@ public class BusquedaProductos {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
         ArrayList<String> marcaItems = marcaComboBox.getCheckedItems();
         ArrayList<String> articuloItems = articuloComboBox.getCheckedItems();
-        if(articuloItems.contains("Cafeteras de goteo")){
+        if (articuloItems.contains("Cafeteras de goteo")) {
             System.out.println("fddfsdsfsdfdsf");
             res.addAll(t.getCafeterasGoteo(marcaItems));
         }
-        if(articuloItems.contains("Cafeteras expreso")){
+        if (articuloItems.contains("Cafeteras expreso")) {
             res.addAll(t.getCafeterasAutomaticas(marcaItems));
         }
-        if(articuloItems.contains("Cafeteras monodosis/capsula")){
+        if (articuloItems.contains("Cafeteras monodosis/capsula")) {
             System.out.println("fddfsdsfsdfdsf");
             res.addAll(t.getCafeterasMonodosis(marcaItems));
         }
@@ -90,14 +90,49 @@ public class BusquedaProductos {
 
     public ArrayList<FilaResultado> getCafeterasDeTiendasSeleccionadas() {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
-        if(fnacCheckBox.isSelected()){
-            res.addAll(getCafeterasDeTienda(new Fnac()));
-        }
-        if(amazonCheckBox.isSelected()){
-            res.addAll(getCafeterasDeTienda(new Amazon()));
-        }
-        if(elCorteInglesCheckBox.isSelected()){
-            res.addAll(getCafeterasDeTienda(new CorteIngles()));
+
+        Thread fnacThread = new Thread() {
+            public void run() {
+                if (fnacCheckBox.isSelected()) {
+                    res.addAll(getCafeterasDeTienda(new Fnac()));
+                }
+            }
+
+        };
+        fnacThread.start();
+        Thread amazonThread = new Thread() {
+            public void run() {
+                if (amazonCheckBox.isSelected()) {
+                    res.addAll(getCafeterasDeTienda(new Amazon()));
+
+                }
+            }
+
+        };
+        amazonThread.start();
+        Thread corteInglesThread = new Thread() {
+            public void run() {
+                if (elCorteInglesCheckBox.isSelected()) {
+                    res.addAll(getCafeterasDeTienda(new CorteIngles()));
+                }
+            }
+        };
+        corteInglesThread.start();
+        Thread mediaMarktThread = new Thread() {
+            public void run() {
+                if (mediaMarktCheckBox.isSelected()) {
+                    res.addAll(getCafeterasDeTienda(new MediaMarkt()));
+                }
+            }
+        };
+        mediaMarktThread.start();
+        try {
+            mediaMarktThread.join();
+            fnacThread.join();
+            corteInglesThread.join();
+            amazonThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return res;
     }

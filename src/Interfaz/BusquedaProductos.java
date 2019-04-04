@@ -88,6 +88,10 @@ public class BusquedaProductos {
 
     public ArrayList<FilaResultado> getCafeterasDeTiendasSeleccionadas() {
         ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
+        YouTube yt = new YouTube();
+        yt.eliminarDuplicados();
+        return res;
+        /*ArrayList<FilaResultado> res = new ArrayList<FilaResultado>();
 
         Thread fnacThread = new Thread() {
             public void run() {
@@ -133,5 +137,6 @@ public class BusquedaProductos {
             e.printStackTrace();
         }
         return res;
+    }*/
     }
 }

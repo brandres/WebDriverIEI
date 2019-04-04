@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 
 public abstract class Tienda {
-    public static final String EXE_PATH = "lib/chromedriver_win32/chromedriver.exe";
+    public static final String EXE_PATH = "lib/chromedriver";
     public WebDriverWait wait;
     public WebDriver driver;
     public Tienda(){
